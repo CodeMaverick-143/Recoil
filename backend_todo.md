@@ -1,88 +1,88 @@
 ## 0. Project Setup
 
-- [ ] Create Rust workspace (`core/`)
-- [ ] Setup crates:
-  - [ ] `sysinfo`
-  - [ ] `netstat2` or `socket2`
-  - [ ] `serde`
-  - [ ] `serde_json`
-  - [ ] `thiserror`
-  - [ ] `tracing`
-- [ ] Setup logging (`tracing_subscriber`)
+- [x] Create Rust workspace (`core/`)
+- [x] Setup crates:
+  - [x] `sysinfo`
+  - [x] `netstat2`
+  - [x] `serde`
+  - [x] `serde_json`
+  - [x] `thiserror`
+  - [x] `tracing`
+- [x] Setup logging (`tracing_subscriber`)
 - [ ] Setup feature flags per OS
-- [ ] Setup CI formatting + clippy
+- [x] Setup CI formatting + clippy
 
 ---
 
 ## 1. Core Domain Models
 
-- [ ] Define `PortInfo`
-  - [ ] port: u16
-  - [ ] protocol: TCP / UDP
-  - [ ] pid: Option<u32>
-  - [ ] process_name: Option<String>
-  - [ ] memory_mb: Option<f32>
-  - [ ] is_system: bool
-  - [ ] is_protected: bool
-- [ ] Define `KillResult`
-  - [ ] pid
-  - [ ] success
-  - [ ] error (optional)
-- [ ] Define `ScanResult`
-  - [ ] Vec<PortInfo>
-  - [ ] scan_duration_ms
+- [x] Define `PortInfo`
+  - [x] port: u16
+  - [x] protocol: TCP / UDP
+  - [x] pid: Option<u32>
+  - [x] process_name: Option<String>
+  - [x] memory_mb: Option<u64>
+  - [x] is_system: bool
+  - [x] is_protected: bool
+- [x] Define `KillResult`
+  - [x] pid (implicit in request)
+  - [x] success
+  - [x] error (optional)
+- [x] Define `ScanResult`
+  - [x] Vec<PortInfo>
+  - [x] scan_duration_ms
 
 ---
 
 ## 2. Port Scanner
 
-- [ ] Implement TCP/UDP port scan
-- [ ] Map port → inode / socket
-- [ ] Map socket → PID
-- [ ] Resolve PID → process info
-- [ ] Filter duplicates
-- [ ] Sort by port number
-- [ ] Mark system processes
-- [ ] Handle permission denied gracefully
+- [x] Implement TCP/UDP port scan
+- [x] Map port → inode / socket
+- [x] Map socket → PID
+- [x] Resolve PID → process info
+- [x] Filter duplicates
+- [x] Sort by port number
+- [x] Mark system processes
+- [x] Handle permission denied gracefully
 
 ---
 
 ## 3. Kill Engine
 
-- [ ] Implement `kill_pid(pid, mode)`
-  - [ ] Mode::Graceful (SIGTERM)
-  - [ ] Mode::Force (SIGKILL)
-- [ ] OS-specific implementations:
-  - [ ] macOS/Linux → `nix::sys::signal`
+- [x] Implement `kill_pid(pid)`
+  - [x] Mode::Graceful (SIGTERM)
+  - [x] Mode::Force (SIGKILL)
+- [x] OS-specific implementations:
+  - [x] macOS/Linux → `nix::sys::signal`
   - [ ] Windows → `TerminateProcess`
-- [ ] Validate PID exists before killing
-- [ ] Prevent killing Recoil itself
-- [ ] Block killing critical system processes
-- [ ] Return structured result
+- [x] Validate PID exists before killing
+- [x] Prevent killing Recoil itself
+- [x] Block killing critical system processes
+- [x] Return structured result
 
 ---
 
 ## 4. Safety Layer
 
 - [ ] Build allowlist/denylist for protected processes
-- [ ] Detect Docker, systemd, launchd, explorer.exe, etc.
-- [ ] Add "danger score" heuristic
-- [ ] Require explicit force flag for dangerous kills
+- [x] Detect Docker, systemd, launchd, explorer.exe, etc.
+- [x] Add "danger score" heuristic
+- [x] Require explicit force flag for dangerous kills
 
 ---
 
 ## 5. Tauri IPC API
 
-- [ ] Expose `scan_ports()` command
-- [ ] Expose `kill_process(pid, mode)` command
-- [ ] Expose `ping()` health check
-- [ ] Expose `get_version()`
+- [x] Expose `scan_ports()` command
+- [x] Expose `kill_process(pid)` command
+- [x] Expose `ping()` health check
+- [x] Expose `get_version()`
 
 ---
 
 ## 6. Privileged Helper (Optional)
 
-- [ ] Detect if kill requires elevation
+- [x] Detect if kill requires elevation
 - [ ] Implement helper binary (setuid / admin)
 - [ ] Secure IPC between app and helper
 - [ ] Verify request origin
@@ -92,7 +92,7 @@
 ## 7. Performance
 
 - [ ] Scan under 200ms on 500+ ports
-- [ ] Cache process list per scan
+- [x] Cache process list per scan
 - [ ] Avoid blocking UI thread
 - [ ] Throttle auto-refresh
 
@@ -109,7 +109,7 @@
 
 ## 9. Cross-Platform Support
 
-- [ ] macOS implementation
+- [x] macOS implementation
 - [ ] Windows implementation
 - [ ] Linux implementation
 - [ ] Platform-specific tests
@@ -118,7 +118,7 @@
 
 ## 10. Error Handling
 
-- [ ] Unified error enum
+- [x] Unified error enum
 - [ ] Map OS errors to human messages
 - [ ] Never crash on scan
 - [ ] Kill failure must not break scanner

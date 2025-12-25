@@ -1,50 +1,35 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
+import { AppLayout } from "./layouts/AppLayout";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { PortList } from "./components/PortList";
+
+import { Toaster } from "sonner";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+  const [status] = useState<"idle" | "active">("active");
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  const handleRefresh = () => {
+    // Mock refresh logic
+    console.log("Refreshing...");
+  };
+
+  const handleOpenSettings = () => {
+    console.log("Open settings");
+  };
 
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
+    <AppLayout>
+      <Toaster theme="dark" position="bottom-center" toastOptions={{
+        style: { background: '#18181b', border: '1px solid #27272a', color: '#fafafa' },
+        className: 'text-xs'
+      }} />
+      <Header status={status} onRefresh={handleRefresh} />
 
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
+      <PortList />
 
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
+      <Footer onOpenSettings={handleOpenSettings} />
+    </AppLayout>
   );
 }
 
