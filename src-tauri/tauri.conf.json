@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "port-killer",
+  "productName": "Recoil",
   "version": "0.1.0",
-  "identifier": "com.arpitsarang.port-killer",
+  "identifier": "com.arpitsarang.recoil",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -10,11 +10,14 @@
     "frontendDist": "../dist"
   },
   "app": {
+    "macOSPrivateApi": true,
     "windows": [
       {
-        "title": "port-killer",
-        "width": 800,
-        "height": 600
+        "title": "Recoil",
+        "width": 400,
+        "height": 600,
+        "decorations": false,
+        "transparent": true
       }
     ],
     "security": {
