@@ -1,0 +1,48 @@
+---
+import { Github, Download, Star } from "lucide-react";
+
+let stars = 0;
+try {
+    const response = await fetch(
+        "https://api.github.com/repos/CodeMaverick-143/recoil",
+    );
+    const data = await response.json();
+    stars = data.stargazers_count || 0;
+} catch (e) {
+    console.error("Failed to fetch stars", e);
+}
+---
+
+<nav
+    class="fixed top-0 w-full z-50 border-b border-white/5 bg-recoil-bg/80 backdrop-blur-md"
+>
+    <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+    >
+        <div class="flex items-center gap-2">
+            <img src="/logo.png" alt="Recoil Logo" class="w-8 h-8 rounded-sm" />
+            <span class="font-bold text-xl tracking-tight text-white"
+                >Recoil</span
+            >
+        </div>
+
+        <div class="flex items-center gap-4">
+            <a
+                href="https://github.com/CodeMaverick-143/recoil"
+                target="_blank"
+                class="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group"
+            >
+                <div
+                    class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 group-hover:border-white/20 transition-colors"
+                >
+                    <Github size={16} />
+                    <span class="text-sm font-medium">{stars}</span>
+                    <Star
+                        size={12}
+                        className="text-yellow-500 fill-yellow-500"
+                    />
+                </div>
+            </a>
+        </div>
+    </div>
+</nav>

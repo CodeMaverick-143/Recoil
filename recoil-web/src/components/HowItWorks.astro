@@ -1,0 +1,87 @@
+---
+const commands = [
+    {
+        cmd: "lsof -i :3000",
+        output: "COMMAND   PID USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME\nnode    12345 arpit   22u  IPv6 0x1234567890abcdef      0t0  TCP *:3000 (LISTEN)",
+    },
+    { cmd: "kill -9 12345", output: "" },
+];
+---
+
+<section class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">
+                The Old Way vs. <span class="text-recoil-red">Recoil</span>
+            </h2>
+            <p class="text-slate-400 text-lg">
+                Stop memorizing terminal commands. Modern problems require
+                modern tools.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- The Old Way: Terminal -->
+            <div
+                class="rounded-xl bg-[#0d1117] border border-slate-800 p-4 font-mono text-sm shadow-2xl"
+            >
+                <div class="flex gap-2 mb-4 border-b border-slate-800 pb-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="space-y-4 text-slate-300">
+                    {
+                        commands.map((item) => (
+                            <div>
+                                <div class="flex gap-2">
+                                    <span class="text-green-400">➜</span>
+                                    <span class="text-blue-400">~</span>
+                                    <span>{item.cmd}</span>
+                                </div>
+                                {item.output && (
+                                    <div class="mt-2 text-slate-500 whitespace-pre-wrap">
+                                        {item.output}
+                                    </div>
+                                )}
+                            </div>
+                        ))
+                    }
+                    <div class="flex gap-2 animate-pulse">
+                        <span class="text-green-400">➜</span>
+                        <span class="text-blue-400">~</span>
+                        <span class="w-2.5 h-5 bg-slate-500 block"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Recoil Way -->
+            <div class="relative group">
+                <div
+                    class="absolute inset-0 bg-recoil-red/20 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                >
+                </div>
+                <div
+                    class="relative bg-slate-900 border border-white/10 rounded-xl p-8 hover:border-recoil-red/30 transition-colors shadow-2xl flex flex-col items-center text-center"
+                >
+                    <div
+                        class="w-20 h-20 bg-recoil-red rounded-xl flex items-center justify-center text-white shadow-lg shadow-recoil-red/30 mb-6"
+                    >
+                        <span class="text-4xl font-bold">R</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">
+                        1. Click Tray Icon
+                    </h3>
+                    <p class="text-slate-400 mb-6">
+                        See all open ports instantly.
+                    </p>
+                    <div class="w-1 h-8 bg-white/10 mb-6"></div>
+                    <h3 class="text-2xl font-bold text-white mb-2">
+                        2. Click "Kill"
+                    </h3>
+                    <p class="text-slate-400">Done. Service terminated.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

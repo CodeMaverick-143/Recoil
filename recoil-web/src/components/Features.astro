@@ -1,0 +1,84 @@
+---
+import { Crosshair, Cpu, Monitor, Zap } from "lucide-react";
+---
+
+<section id="features" class="py-24 bg-slate-950/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Feature 1: Large -->
+            <div
+                class="md:col-span-2 p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-recoil-red/50 transition-colors group"
+            >
+                <div
+                    class="w-12 h-12 bg-recoil-red/10 rounded-lg flex items-center justify-center text-recoil-red mb-6 group-hover:bg-recoil-red group-hover:text-white transition-colors"
+                >
+                    <Crosshair size={24} />
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Sniper Scope</h3>
+                <p class="text-slate-400">
+                    Instantly identify which process is hogging your ports. No
+                    more cryptic terminal commands. See the PID, name, and user
+                    at a glance.
+                </p>
+            </div>
+
+            <!-- Feature 2: Tall -->
+            <div
+                class="row-span-2 p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-recoil-red/50 transition-colors group flex flex-col justify-end overflow-hidden relative"
+            >
+                <div
+                    class="absolute top-0 right-0 w-64 h-64 bg-recoil-red/10 blur-[80px] rounded-full pointer-events-none"
+                >
+                </div>
+                <div class="relative z-10">
+                    <div
+                        class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center text-indigo-400 mb-6 group-hover:bg-indigo-500 group-hover:text-white transition-colors"
+                    >
+                        <Monitor size={24} />
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">
+                        Cross Platform
+                    </h3>
+                    <p class="text-slate-400">
+                        Native support for macOS, Windows, and Linux. Built with
+                        Tauri for a tiny footprint and maximum OS integration.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div
+                class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-recoil-red/50 transition-colors group"
+            >
+                <div
+                    class="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center text-emerald-400 mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors"
+                >
+                    <Zap size={24} />
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Instant Kill</h3>
+                <p class="text-slate-400">
+                    Terminate processes with a single click. Free up port 3000
+                    in less than a second.
+                </p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div
+                class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-recoil-red/50 transition-colors group"
+            >
+                <div
+                    class="w-12 h-12 bg-amber-500/10 rounded-lg flex items-center justify-center text-amber-400 mb-6 group-hover:bg-amber-500 group-hover:text-white transition-colors"
+                >
+                    <Cpu size={24} />
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">
+                    Thermal Vision
+                </h3>
+                <p class="text-slate-400">
+                    Real-time CPU and Memory monitoring directly in your tray.
+                    Know your system's heartbeat.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+    --color-recoil-bg: #020617;
+    --color-recoil-red: #ef4444;
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+@layer utilities {
+    .text-glow {
+        text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+    }
+}
+
+html,
+body {
+    background-color: var(--color-recoil-bg);
+    color: #e2e8f0;
+    /* slate-200 */
+    font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+}
