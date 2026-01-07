@@ -36,26 +36,48 @@ import { ArrowRight } from "lucide-react";
             Built with Rust & Tauri for extreme performance.
         </p>
 
-        <div
-            class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
-        >
-            <a
-                id="download-btn"
-                href="https://github.com/CodeMaverick-143/recoil/releases/latest"
-                class="w-full sm:w-auto group relative flex items-center justify-center gap-3 bg-white text-recoil-bg px-8 py-4 rounded-md font-bold text-lg hover:bg-slate-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] font-body tracking-tight"
+        <div class="flex flex-col items-center gap-6 w-full max-w-xl mx-auto">
+            <div
+                class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
             >
-                <span id="download-text">Download for Free</span>
-                <ArrowRight
-                    className="group-hover:translate-x-1 transition-transform"
-                />
-            </a>
-            <a
-                href="https://github.com/CodeMaverick-143/recoil"
-                target="_blank"
-                class="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-md font-medium text-white border border-white/10 hover:bg-white/5 transition-colors font-body"
+                <a
+                    id="download-btn"
+                    href="https://github.com/CodeMaverick-143/recoil/releases/latest"
+                    class="w-full sm:w-auto group relative flex items-center justify-center gap-3 bg-white text-recoil-bg px-8 py-4 rounded-md font-bold text-lg hover:bg-slate-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] font-body tracking-tight"
+                >
+                    <span id="download-text">Download for Free</span>
+                    <ArrowRight
+                        className="group-hover:translate-x-1 transition-transform"
+                    />
+                </a>
+                <a
+                    href="https://github.com/CodeMaverick-143/recoil"
+                    target="_blank"
+                    class="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-md font-medium text-white border border-white/10 hover:bg-white/5 transition-colors font-body"
+                >
+                    View Source
+                </a>
+            </div>
+
+            <!-- macOS Verification Command (Hidden by default) -->
+            <div
+                id="mac-cmd-container"
+                class="hidden w-full max-w-lg animate-fade-in"
             >
-                View Source
-            </a>
+                <div
+                    class="flex items-center justify-center gap-2 mb-2 text-xs text-slate-400"
+                >
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                    <span>Run this if app doesn't open:</span>
+                </div>
+                <div class="relative group/cmd">
+                    <code
+                        class="block text-xs font-mono text-amber-100/90 bg-amber-500/10 border border-amber-500/20 p-3 rounded-lg text-center select-all"
+                    >
+                        xattr -cr "/Applications/Recoil.app"
+                    </code>
+                </div>
+            </div>
         </div>
 
         <!-- 3D Mockup Container -->
@@ -86,9 +108,12 @@ import { ArrowRight } from "lucide-react";
         "https://github.com/CodeMaverick-143/recoil/releases/latest/download";
 
     // Simple detection logic
+    const macCmd = document.getElementById("mac-cmd-container");
+
     if (platform.includes("mac") || userAgent.includes("mac")) {
         txt!.textContent = "Download for macOS";
         btn.href = `${BASE_URL}/Recoil_0.1.0_universal.dmg`;
+        macCmd?.classList.remove("hidden");
     } else if (platform.includes("win") || userAgent.includes("windows")) {
         txt!.textContent = "Download for Windows";
         btn.href = `${BASE_URL}/Recoil_0.1.0_x64-setup.exe`;
