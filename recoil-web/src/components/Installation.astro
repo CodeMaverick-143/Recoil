@@ -1,8 +1,9 @@
 ---
-import { Apple, Monitor, Package, Download } from "lucide-react";
+import { Apple, Package, Download } from "lucide-react";
+import { WindowsLogo } from "./PlatformIcons";
 
 const releases = {
-    version: "0.1.0",
+    version: "0.2.5",
     baseUrl:
         "https://github.com/CodeMaverick-143/recoil/releases/latest/download",
 };
@@ -10,7 +11,7 @@ const releases = {
 const platforms = [
     {
         name: "Windows",
-        icon: Monitor,
+        icon: WindowsLogo,
         color: "text-blue-400",
         formats: [
             { label: "Installer (.exe)", file: "Recoil_0.1.0_x64-setup.exe" },
