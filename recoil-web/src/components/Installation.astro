@@ -1,5 +1,5 @@
 ---
-import { Apple, Package, Download } from "lucide-react";
+import { Apple, Package, Download, Copy, Check } from "lucide-react";
 import { WindowsLogo } from "./PlatformIcons";
 
 const releases = {
@@ -14,6 +14,7 @@ interface Platform {
     color: string;
     formats: { label: string; file: string }[];
     verificationCommand?: string;
+    cmdId?: string;
 }
 
 const platforms: Platform[] = [
@@ -48,6 +49,7 @@ const platforms: Platform[] = [
             },
         ],
         verificationCommand: 'xattr -cr "/Applications/Recoil.app"',
+        cmdId: "mac-install-cmd",
     },
 ];
 ---
@@ -132,9 +134,24 @@ const platforms: Platform[] = [
                                     </p>
                                 </div>
                                 <div class="relative group/cmd">
-                                    <code class="block text-xs font-mono text-amber-100/90 bg-amber-500/10 border border-amber-500/20 p-3 rounded-lg select-all break-all">
+                                    <code
+                                        id={platform.cmdId}
+                                        class="block text-xs font-mono text-amber-100/90 bg-amber-500/10 border border-amber-500/20 p-3 pr-12 rounded-lg select-all break-all"
+                                    >
                                         {platform.verificationCommand}
                                     </code>
+                                    <button
+                                        data-cmd-id={platform.cmdId}
+                                        class="copy-install-btn absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-amber-500/20 text-amber-200/70 hover:text-amber-100 transition-colors bg-amber-500/10 backdrop-blur-sm border border-amber-500/10"
+                                        aria-label="Copy command"
+                                    >
+                                        <span class="icon-copy">
+                                            <Copy className="w-3.5 h-3.5" />
+                                        </span>
+                                        <span class="icon-check hidden text-green-400">
+                                            <Check className="w-3.5 h-3.5" />
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
                         )}
@@ -151,3 +168,36 @@ const platforms: Platform[] = [
         </div>
     </div>
 </section>
+
+<script>
+    const copyBtns = document.querySelectorAll(".copy-install-btn");
+
+    copyBtns.forEach((btn) => {
+        btn.addEventListener("click", async () => {
+            const cmdId = btn.getAttribute("data-cmd-id");
+            if (!cmdId) return;
+
+            const cmdCode = document.getElementById(cmdId);
+            const iconCopy = btn.querySelector(".icon-copy");
+            const iconCheck = btn.querySelector(".icon-check");
+
+            if (!cmdCode) return;
+
+            try {
+                await navigator.clipboard.writeText(cmdCode.textContent || "");
+
+                // Show check icon
+                iconCopy?.classList.add("hidden");
+                iconCheck?.classList.remove("hidden");
+
+                // Revert after 2 seconds
+                setTimeout(() => {
+                    iconCopy?.classList.remove("hidden");
+                    iconCheck?.classList.add("hidden");
+                }, 2000);
+            } catch (err) {
+                console.error("Failed to copy:", err);
+            }
+        });
+    });
+</script>

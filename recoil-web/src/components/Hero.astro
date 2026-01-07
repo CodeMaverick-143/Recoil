@@ -1,5 +1,5 @@
 ---
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Copy, Check } from "lucide-react";
 ---
 
 <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
@@ -72,10 +72,22 @@ import { ArrowRight } from "lucide-react";
                 </div>
                 <div class="relative group/cmd">
                     <code
-                        class="block text-xs font-mono text-amber-100/90 bg-amber-500/10 border border-amber-500/20 p-3 rounded-lg text-center select-all"
+                        id="mac-cmd-code"
+                        class="block text-xs font-mono text-amber-100/90 bg-amber-500/10 border border-amber-500/20 p-3 pr-12 rounded-lg select-all break-all"
+                        >xattr -cr "/Applications/Recoil.app"</code
                     >
-                        xattr -cr "/Applications/Recoil.app"
-                    </code>
+                    <button
+                        id="copy-cmd-btn"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-amber-500/20 text-amber-200/70 hover:text-amber-100 transition-colors bg-amber-500/10 backdrop-blur-sm border border-amber-500/10"
+                        aria-label="Copy command"
+                    >
+                        <span id="icon-copy">
+                            <Copy className="w-3.5 h-3.5" />
+                        </span>
+                        <span id="icon-check" class="hidden text-green-400">
+                            <Check className="w-3.5 h-3.5" />
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -121,4 +133,30 @@ import { ArrowRight } from "lucide-react";
         txt!.textContent = "Download for Linux";
         btn.href = `${BASE_URL}/Recoil_0.1.0_amd64.deb`;
     }
+
+    // Copy functionality
+    const copyBtn = document.getElementById("copy-cmd-btn");
+    const cmdCode = document.getElementById("mac-cmd-code");
+    const iconCopy = document.getElementById("icon-copy");
+    const iconCheck = document.getElementById("icon-check");
+
+    copyBtn?.addEventListener("click", async () => {
+        if (!cmdCode) return;
+
+        try {
+            await navigator.clipboard.writeText(cmdCode.textContent || "");
+
+            // Show check icon
+            iconCopy?.classList.add("hidden");
+            iconCheck?.classList.remove("hidden");
+
+            // Revert after 2 seconds
+            setTimeout(() => {
+                iconCopy?.classList.remove("hidden");
+                iconCheck?.classList.add("hidden");
+            }, 2000);
+        } catch (err) {
+            console.error("Failed to copy:", err);
+        }
+    });
 </script>
